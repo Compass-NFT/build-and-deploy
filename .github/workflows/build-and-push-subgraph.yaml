@@ -65,7 +65,7 @@ jobs:
 
           docker build \
             --build-arg NPM_TOKEN=${{ secrets.NPM_TOKEN }} \
-            -t $IMAGE:$TAG .
+            -t ${{inputs.repo}}/${{ inputs.image_name }}:$TAG .
 
       - name: Push image
         run: |
