@@ -56,7 +56,7 @@ jobs:
       - name: Check subgraph
         run: |
           export APOLLO_KEY=${{ secrets.apollo_key }}
-          $HOME/.rover/bin/rover subgraph check ${{inputs.graph_id}}@${{inputs.graph_variant}} --schema ./schema.graphql --name ${{inputs.subgraph_name}}
+          $HOME/.rover/bin/rover subgraph check ${{inputs.graph_id}}@$GRAPH_VARIANT --schema ./schema.graphql --name ${{inputs.subgraph_name}}
 
       - name: Build image
         run: |
