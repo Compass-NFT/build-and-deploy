@@ -2,20 +2,15 @@ name: Deploy Subgraph
 
 on:
   workflow_call:
-    inputs:
+    secrets:
       subgraph_name: 
         required: true
-        type: string
       graph_id:
         required: true
-        type: string
       graph_variant:
         required: true
-        type: string
       namespace:
-        required: true
-        type: string
-    secrets:
+        required: true  
       apollo_key:
         required: true
 
