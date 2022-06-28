@@ -25,6 +25,8 @@ on:
         required: true
       apollo_key:
         required: true
+      npm_token:
+        required: true
 
 jobs:
   build:
@@ -64,7 +66,7 @@ jobs:
           export DOCKER_BUILDKIT=1
 
           docker build \
-            --build-arg NPM_TOKEN=${{ secrets.NPM_TOKEN }} \
+            --build-arg NPM_TOKEN=${{ secrets.npm_token }} \
             -t ${{inputs.repo}}/${{ inputs.image_name }}:$TAG .
 
       - name: Push image
