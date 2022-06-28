@@ -13,7 +13,7 @@ on:
         required: true
         type: string
     secrets:
-      github_token:
+      gh_token:
         required: true
       kubeconfig:
         required: true
@@ -30,7 +30,7 @@ jobs:
           release: ${{ input.release_name }}
           namespace: ${{ input.namespace }}
           chart: './chart'
-          token: '${{ secrets.github_token }}'
+          token: '${{ secrets.gh_token }}'
           helm: helm3
           values: ${{ input.values }}
         env:
