@@ -12,9 +12,9 @@ on:
       graph_id:
         required: true
         type: string
-      graph_variant:
-        required: true
-        type: string
+#       graph_variant:
+#         required: true
+#         type: string
       repo:
         required: true
         type: string
