@@ -10,7 +10,7 @@ on:
         required: true
         type: string
       graph_id:
-        require: true
+        required: true
         type: string
       graph_variant:
         required: true
