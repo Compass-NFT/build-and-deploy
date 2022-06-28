@@ -3,9 +3,6 @@ name: Deploy Subgraph
 on:
   workflow_call:
     inputs:
-      image_name:
-        required: true
-        type: string
       subgraph_name: 
         required: true
         type: string
