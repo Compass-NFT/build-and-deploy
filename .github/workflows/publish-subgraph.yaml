@@ -1,0 +1,44 @@
+name: Deploy Subgraph
+
+on:
+  workflow_call:
+    inputs:
+      image_name:
+        required: true
+        type: string
+      subgraph_name: 
+        required: true
+        type: string
+      graph_id:
+        required: true
+        type: string
+      graph_variant:
+        required: true
+        type: string
+      namespace:
+        required: true
+        type: string
+    secrets:
+      apollo_key:
+        required: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install Rover
+        continue-on-error: true
+        run: |
+          curl -sSL https://rover.apollo.dev/nix/v0.4.3 | sh
+          echo "$HOME/.rover/bin" >> $GITHUB_PATH
+
+      - name: Publish subgraph
+        run: |
+          APOLLO_KEY=${{ secrets.apollo_key }} \
+          $HOME/.rover/bin/rover subgraph publish ${{inputs.graph_id}}@${{inputs.graph_variant}} \
+            --schema ./schema.graphql \
+            --name ${{input.subgraph_name}} \
+            --routing-url http://${{input.subgraph_name}}.${{input.namespace}}.svc.cluster.local:3000/graphql
