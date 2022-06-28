@@ -37,5 +37,5 @@ jobs:
           APOLLO_KEY=${{ secrets.apollo_key }} \
           $HOME/.rover/bin/rover subgraph publish ${{inputs.graph_id}}@${{inputs.graph_variant}} \
             --schema ./schema.graphql \
-            --name ${{input.subgraph_name}} \
-            --routing-url http://${{input.subgraph_name}}.${{input.namespace}}.svc.cluster.local:3000/graphql
+            --name ${{inputs.subgraph_name}} \
+            --routing-url http://${{inputs.subgraph_name}}.${{inputs.namespace}}.svc.cluster.local:3000/graphql
