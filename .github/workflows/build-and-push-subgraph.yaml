@@ -18,6 +18,9 @@ on:
       repo:
         required: true
         type: string
+      schema_path:
+        required: false
+        type: string
     secrets:
       registry_username:
         required: true
@@ -58,7 +61,7 @@ jobs:
       - name: Check subgraph
         run: |
           export APOLLO_KEY=${{ secrets.apollo_key }}
-          $HOME/.rover/bin/rover subgraph check ${{inputs.graph_id}}@$GRAPH_VARIANT --schema ./schema.graphql --name ${{inputs.subgraph_name}}
+          $HOME/.rover/bin/rover subgraph check ${{inputs.graph_id}}@$GRAPH_VARIANT --schema ${{inputs.schema_path || './schema.graphql'}} --name ${{inputs.subgraph_name}}
 
       - name: Build image
         run: |
