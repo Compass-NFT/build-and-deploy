@@ -1,0 +1,41 @@
+name: Build and push Docker image for subgraph
+
+on:
+  workflow_call:
+    inputs:
+      image_name:
+        required: true
+        type: string
+      repo:
+        required: true
+        type: string
+    secrets:
+      registry_username:
+        required: true
+      registry_password:
+        required: true
+      npm_token:
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Log in to registry
+        run: echo "${{ secrets.registry_username }}" | docker login ${{ inputs.repo }} -u "${{ secrets.registry_password }}" --password-stdin
+
+      - name: Build image
+        run: |
+          export TAG=${{ github.event.pull_request.head.sha || github.sha }}
+          export DOCKER_BUILDKIT=1
+
+          docker build \
+            --build-arg NPM_TOKEN=${{ secrets.npm_token }} \
+            -t ${{inputs.repo}}/${{ inputs.image_name }}:$TAG .
+
+      - name: Push image
+        run: |
+          export TAG=${{ github.event.pull_request.head.sha || github.sha }} 
+          docker push ${{inputs.repo}}/${{ inputs.image_name }}:$TAG
