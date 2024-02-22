@@ -29,7 +29,6 @@ jobs:
       - name: Build image
         run: |
           export TAG=${{ github.event.pull_request.head.sha || github.sha }}
-          export DOCKER_BUILDKIT=1
 
           docker build \
             --build-arg NPM_TOKEN=${{ secrets.npm_token }} \
