@@ -33,6 +33,7 @@ jobs:
 
           docker build \
             --build-arg NPM_TOKEN=${{ secrets.npm_token }} \
+            --network=host \
             -t ${{inputs.repo}}/${{ inputs.image_name }}:$TAG .
 
       - name: Push image
